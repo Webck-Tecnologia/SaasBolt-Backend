@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: bolt360ti
       POSTGRES_PASSWORD: Bolt360@@!
     ports:
-      - '5432:5432'
+      - '3101:5432'  # Porta do PostgreSQL exposta em 3101
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
@@ -27,7 +27,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: bolt360@admin.com
       PGADMIN_DEFAULT_PASSWORD: bolt360ti@!@
     ports:
-      - '5050:80'
+      - '3102:80'  # Porta do PgAdmin exposta em 3102
     depends_on:
       - postgres
     volumes:
@@ -40,7 +40,7 @@ services:
     image: atendai/evolution-api:v2.1.1
     restart: always
     ports:
-      - "8080:8080"
+      - "3103:8080"  # Porta da Evolution API exposta em 3103
     environment:
       PORT: 2345
       POSTGRES_PORT: 5432
@@ -89,8 +89,8 @@ services:
       MINIO_ROOT_USER: bolt360ti
       MINIO_ROOT_PASSWORD: Gmais2023@!!@
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "3104:9000"  # Porta do MinIO exposta em 3104
+      - "3105:9001"  # Console do MinIO exposto em 3105
     command: server /data --console-address ":9001"
     volumes:
       - minio-data:/data
@@ -101,7 +101,7 @@ services:
     image: redis:latest
     restart: always
     ports:
-      - "6379:6379"
+      - "3106:6379"  # Porta do Redis exposta em 3106
     volumes:
       - redis-data:/data
     networks:
@@ -114,7 +114,7 @@ services:
     container_name: saas_backend
     restart: always
     ports:
-      - "2345:2345"
+      - "3107:2345"  # Porta do Backend exposta em 3107
     environment:
       NODE_ENV: production
       POSTGRES_HOST: postgres
