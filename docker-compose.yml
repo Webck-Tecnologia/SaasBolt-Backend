@@ -5,17 +5,17 @@ services:
     image: postgres:16
     restart: always
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: campanhas360
+      POSTGRES_USER: bolt360ti
+      POSTGRES_PASSWORD: Bolt360@@!
     ports:
-      - '${POSTGRES_PORT}:5432'
+      - '5432:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - saas-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U bolt360ti -d campanhas360"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -24,8 +24,8 @@ services:
     image: dpage/pgadmin4
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_DEFAULT_EMAIL: bolt360@admin.com
+      PGADMIN_DEFAULT_PASSWORD: bolt360ti@!@
     ports:
       - '5050:80'
     depends_on:
@@ -41,8 +41,37 @@ services:
     restart: always
     ports:
       - "8080:8080"
-    env_file:
-      - .env
+    environment:
+      PORT: 2345
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: evolution
+      POSTGRES_USER: bolt360ti
+      POSTGRES_PASSWORD: Bolt360@@!
+      JWT_SECRET: kasdjasidaau1n213mmaaasdncksk
+      PRODUCTION: true
+      MINIO_ROOT_USER: bolt360ti
+      MINIO_ROOT_PASSWORD: Gmais2023@!!@
+      MINIO_BUCKET: evolution-assets
+      MINIO_ENDPOINT: minio
+      MINIO_USE_SSL: false
+      MINIO_PORT: 9000
+      AUTHENTICATION_API_KEY: kasdjasidaau1n213mmaaasdncksk
+      DATABASE_PROVIDER: postgresql
+      DATABASE_CONNECTION_URI: postgresql://bolt360ti:Bolt360@@!@postgres:5432/evolution
+      S3_ENABLED: true
+      S3_ACCESS_KEY: bolt360ti
+      S3_SECRET_KEY: Gmais2023@!!@
+      S3_BUCKET: evolution-assets
+      S3_ENDPOINT: minio
+      S3_USE_SSL: false
+      CACHE_REDIS_ENABLED: true
+      CACHE_REDIS_URI: redis://redis:6379/6
+      CACHE_REDIS_PREFIX_KEY: evolution
+      CACHE_REDIS_SAVE_INSTANCES: false
+      CACHE_LOCAL_ENABLED: false
+      URL_EVOLUTION_API: http://localhost:8080
+      EVOLUTION_API_KEY: sua_chave_api_aqui
+      BASE_URL: http://host.docker.internal:2345
     depends_on:
       - postgres
       - minio
@@ -57,8 +86,8 @@ services:
     container_name: minio
     restart: always
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_ROOT_USER: bolt360ti
+      MINIO_ROOT_PASSWORD: Gmais2023@!!@
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -87,16 +116,16 @@ services:
     ports:
       - "2345:2345"
     environment:
-      - NODE_ENV=development
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - MINIO_ENDPOINT=minio
-      - MINIO_PORT=9000
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      NODE_ENV: production
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: campanhas360
+      POSTGRES_USER: bolt360ti
+      POSTGRES_PASSWORD: Bolt360@@!
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     depends_on:
       postgres:
         condition: service_healthy
